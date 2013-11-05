@@ -10,7 +10,9 @@ import org.moxieapps.gwt.highcharts.client.ToolTipData;
 import org.moxieapps.gwt.highcharts.client.ToolTipFormatter;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.gwt.user.client.ui.RootPanel;
 
 
 public class Gwthighcharts implements EntryPoint
@@ -19,7 +21,34 @@ public class Gwthighcharts implements EntryPoint
    @Override
    public void onModuleLoad()
    {
-      RootLayoutPanel.get().add(createChart());
+      startInRootLayoutFixed();
+      // startInRootLayoutNotFixed();
+      // startRootPanel();
+   }
+
+   public void startInRootLayoutFixed()
+   {
+      RootLayoutPanel rootLayoutPanel = RootLayoutPanel.get();
+      Chart chart = createChart();
+      // Fix to have the chart at the size of the window on first load.
+      // http://stackoverflow.com/questions/8809852/highcharts-how-to-have-a-chart-with-dynamic-height
+      // http://api.highcharts.com/highcharts#chart.height
+      chart.getElement().getStyle().setHeight(100, Unit.PCT);
+      rootLayoutPanel.add(chart);
+   }
+
+   public void startInRootLayoutNotFixed()
+   {
+      RootLayoutPanel rootLayoutPanel = RootLayoutPanel.get();
+      Chart chart = createChart();
+      rootLayoutPanel.add(chart);
+   }
+
+   public void startRootPanel()
+   {
+      RootPanel rootPanel = RootPanel.get();
+      Chart chart = createChart();
+      rootPanel.add(chart);
    }
 
    public Chart createChart()
