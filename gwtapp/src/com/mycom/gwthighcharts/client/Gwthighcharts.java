@@ -11,8 +11,10 @@ import org.moxieapps.gwt.highcharts.client.ToolTipFormatter;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 
 
 public class Gwthighcharts implements EntryPoint
@@ -21,34 +23,63 @@ public class Gwthighcharts implements EntryPoint
    @Override
    public void onModuleLoad()
    {
-      startInRootLayoutFixed();
-      // startInRootLayoutNotFixed();
-      // startRootPanel();
+      startInDockLayoutPanel();
    }
 
-   public void startInRootLayoutFixed()
+   public void startInRootLayoutCorrect()
    {
       RootLayoutPanel rootLayoutPanel = RootLayoutPanel.get();
       Chart chart = createChart();
       // Fix to have the chart at the size of the window on first load.
       // http://stackoverflow.com/questions/8809852/highcharts-how-to-have-a-chart-with-dynamic-height
       // http://api.highcharts.com/highcharts#chart.height
-      chart.getElement().getStyle().setHeight(100, Unit.PCT);
+      chart.setWidth100();
+      chart.setHeight100();
       rootLayoutPanel.add(chart);
    }
 
-   public void startInRootLayoutNotFixed()
+   public void startInRootLayoutNotCorret()
    {
       RootLayoutPanel rootLayoutPanel = RootLayoutPanel.get();
       Chart chart = createChart();
       rootLayoutPanel.add(chart);
    }
 
-   public void startRootPanel()
+   public void startInRootPanel()
    {
       RootPanel rootPanel = RootPanel.get();
       Chart chart = createChart();
       rootPanel.add(chart);
+   }
+
+   public void startInDockLayoutPanel()
+   {
+      RootLayoutPanel rootPanel = RootLayoutPanel.get();
+      Chart chart = createChart();
+      chart.setWidth100();
+      chart.setHeight100();
+
+      DockLayoutPanel dock1 = new DockLayoutPanel(Unit.PX);
+
+      SimpleLayoutPanel slp1 = new SimpleLayoutPanel();
+      slp1.getElement().getStyle().setBackgroundColor("blue");
+
+      SimpleLayoutPanel slp2 = new SimpleLayoutPanel();
+      slp2.getElement().getStyle().setBackgroundColor("yellow");
+
+      SimpleLayoutPanel slp3 = new SimpleLayoutPanel();
+      slp3.getElement().getStyle().setBackgroundColor("red");
+
+      SimpleLayoutPanel slp4 = new SimpleLayoutPanel();
+      slp4.getElement().getStyle().setBackgroundColor("green");
+
+      dock1.addNorth(slp1, 50);
+      // dock1.addSouth(slp3, 50);
+      dock1.addWest(slp2, 50);
+      // dock1.addEast(slp4, 50);
+
+      dock1.add(chart);
+      rootPanel.add(dock1);
    }
 
    public Chart createChart()
