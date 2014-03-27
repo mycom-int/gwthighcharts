@@ -3,13 +3,13 @@ gwthighcharts
 
 #Responsive Highcharts in GWT
 
-I this project we demonstrate how to handle responsive charts in layout panels.
+In this project we demonstrate how to handle responsive charts in layout panels.
 
 We use Highcharts 3.0.10
 Moxie wrapper 1.6
 
 ## Initial rendering
-At first rendering the chart does not have the right size. So we use a defereed scheduler to resize the chart.
+At first rendering the chart does not have the right size. So we use a deferred scheduler to resize the chart.
 
         
         Scheduler scheduler = Scheduler.get();
