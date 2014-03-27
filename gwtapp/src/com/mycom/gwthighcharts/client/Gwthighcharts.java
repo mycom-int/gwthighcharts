@@ -14,11 +14,8 @@ import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
-
 
 public class Gwthighcharts implements EntryPoint
 {
@@ -29,38 +26,10 @@ public class Gwthighcharts implements EntryPoint
       startInDockLayoutPanel();
    }
 
-   public void startInRootLayoutCorrect()
-   {
-      RootLayoutPanel rootLayoutPanel = RootLayoutPanel.get();
-      Chart chart = createChart();
-      // Fix to have the chart at the size of the window on first load.
-      // http://stackoverflow.com/questions/8809852/highcharts-how-to-have-a-chart-with-dynamic-height
-      // http://api.highcharts.com/highcharts#chart.height
-      chart.setWidth100();
-      chart.setHeight100();
-      rootLayoutPanel.add(chart);
-   }
-
-   public void startInRootLayoutNotCorret()
-   {
-      RootLayoutPanel rootLayoutPanel = RootLayoutPanel.get();
-      Chart chart = createChart();
-      rootLayoutPanel.add(chart);
-   }
-
-   public void startInRootPanel()
-   {
-      RootPanel rootPanel = RootPanel.get();
-      Chart chart = createChart();
-      rootPanel.add(chart);
-   }
-
    public void startInDockLayoutPanel()
    {
       final RootLayoutPanel rootPanel = RootLayoutPanel.get();
       final Chart chart = createChart();
-      chart.setWidth100();
-      chart.setHeight100();
 
       final DockLayoutPanel dock1 = new DockLayoutPanel(Unit.PX);
 
@@ -73,8 +42,9 @@ public class Gwthighcharts implements EntryPoint
       dock1.addNorth(slp1, 50);
       dock1.addWest(slp2, 50);
 
+      ChartSimpleLayoutPanel cp = new ChartSimpleLayoutPanel(chart);
+      dock1.add(cp);
 
-      dock1.add(chart);
       rootPanel.add(dock1);
 
       Scheduler scheduler = Scheduler.get();
@@ -89,45 +59,11 @@ public class Gwthighcharts implements EntryPoint
       });
    }
 
-
-   public void startInLayoutPanels()
-   {
-      RootLayoutPanel rootPanel = RootLayoutPanel.get();
-
-      final Chart chart = createChart();
-      chart.setWidth100();
-      chart.setHeight100();
-
-      LayoutPanel container = new LayoutPanel();
-
-      LayoutPanel north = new LayoutPanel();
-      north.getElement().getStyle().setBackgroundColor("blue");
-      LayoutPanel west = new LayoutPanel();
-      west.getElement().getStyle().setBackgroundColor("red");
-
-
-      container.add(north);
-      container.setWidgetTopHeight(north, 0, Unit.PX, 25, Unit.PX);
-
-      container.add(west);
-      container.setWidgetLeftWidth(west, 0, Unit.PX, 25, Unit.PX);
-
-
-      container.add(chart);
-      container.setWidgetTopBottom(chart, 25, Unit.PX, 0, Unit.PX);
-      container.setWidgetLeftRight(chart, 25, Unit.PX, 0, Unit.PX);
-
-      rootPanel.add(container);
-   }
-
    public Chart createChart()
    {
 
       final Chart chart = new Chart();
-      chart.setType(Series.Type.LINE)
-         .setMarginRight(130)
-         .setMarginBottom(25)
-         .setChartTitle(new ChartTitle().setText("Monthly Average Temperature").setX(-20) // center
+      chart.setType(Series.Type.LINE).setMarginRight(130).setMarginBottom(25).setChartTitle(new ChartTitle().setText("Monthly Average Temperature").setX(-20) // center
          )
          .setChartSubtitle(new ChartSubtitle().setText("Source: WorldClimate.com").setX(-20))
          .setLegend(
