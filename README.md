@@ -73,3 +73,6 @@ To avoid resize the chart too frequently and thus freezing the UI we added a tim
         }
 
 
+What it looks like
+
+![Responsive](./gwthighcharts.png)
