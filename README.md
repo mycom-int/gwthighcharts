@@ -1,7 +1,4 @@
-gwthighcharts
-=============
-
-#Responsive Highcharts in GWT
+#Responsive (High)charts in GWT
 
 In this project we demonstrate how to handle responsive charts in layout panels.
 
@@ -73,6 +70,6 @@ To avoid resize the chart too frequently and thus freezing the UI we added a tim
         }
 
 
-What it looks like
+We added our chart panel to a DockLayoutPanel center region that resizes with the window or when changing the west/north region size. It looks like this (hope you will appreciate the nice colors !)
 
 ![Responsive](./gwthighcharts.png)
