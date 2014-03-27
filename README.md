@@ -2,7 +2,7 @@
 
 In this project we demonstrate how to handle responsive charts in layout panels.
 
-We use [Highcharts](www.highcharts.com) 3.0.10
+We use [Highcharts](http://www.highcharts.com) 3.0.10
 
 [Moxie](http://www.moxiegroup.com/moxieapps/gwt-highcharts/) wrapper 1.6
 
